@@ -8,20 +8,54 @@
 
 ### ***`npm start`***
 
-Запускает приложение в режиме разработки.\
+Запускает приложение в режиме разработки.
 Откройте [http://localhost:3000](http://localhost:3000) для запуска приложения в браузере.
 
 При внесении изменений приложение обновится.\
 
 ### Также доступны скрипты
 
-#### 0. ***`npm test`***
-#### 0. ***`npm run build`***
-#### 0. ***`npm run eject`***
+#### ***`npm test`***
+#### ***`npm run build`***
+#### ***`npm run eject`***
 
 Подробнее [NPM - scripts](https://docs.npmjs.com/cli/v7/using-npm/scripts)
 
 ### UML-схема сборки приложения на React
+
+```mermaid
+stateDiagram-v2
+state Create-project-app {
+    state "/node_modues" as node_modules
+    state "/src" as src
+    state /public {
+    state "/index.html" as public_index
+    state "/favicon.ico" as public_favicon
+    state "/manifest.json" as public_manifest
+    }
+}
+
+state localhost:3000 {
+
+	state "manifest.json" as manifest
+	state "main.chunk.js" as main
+	state "favicon.ico" as favicon
+	state "vendor~main.chunk.js" as vendor
+	state "bundle.js" as bundle
+	state "index.html" as index
+}
+
+node_modules --> vendor
+src --> main
+public_favicon --> favicon
+public_manifest --> manifest
+public_index --> index
+manifest --> index
+main --> index
+favicon --> index
+vendor --> index
+bundle --> index
+```
 
 ```
 @startuml packaging
@@ -66,7 +100,7 @@ cloud {
 @enduml
 ```
 
-![*UML-схема сборки приложения на React*](//React-app.png "React-app сборка")
+![UML-схема сборки приложения на React](https://github.com/aeoloth/React-hw-01-09/blob/hw-01-09/hw-01-09/React-app.jpg?raw=true "React-app сборка")
 
 |    Задание    | Обязательность  |     Наличие   |
 |:------------- |:---------------:| -------------:|
