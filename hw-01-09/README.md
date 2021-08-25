@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Приложение React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Приложение собрано с использованием [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Доступные скрипты
 
-In the project directory, you can run:
+Вы можете запустить в директории проекта:
 
-### `npm start`
+### ***`npm start`***
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Запускает приложение в режиме разработки.\
+Откройте [http://localhost:3000](http://localhost:3000) для запуска приложения в браузере.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+При внесении изменений приложение обновится.\
 
-### `npm test`
+### Также доступны скрипты
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### ***`npm test`***
+#### ***`npm run build`***
+#### ***`npm run eject`***
 
-### `npm run build`
+Подробнее [NPM - scripts](https://docs.npmjs.com/cli/v7/using-npm/scripts)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### UML-схема сборки приложения на React
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+@startuml packaging
+component "Create-project-app" as project  {
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    folder "/node_modues" {
+        artifact "/..." as node_modules
+    }
+    folder "/src" {
+        artifact "/..." as src
+    }
+    folder "/public/..." as public {
+        file "/index.html" as public_index
+        file "/favicon.ico" as public_favicon
+        file "/manifest.json" as public_manifest
+    }
+}
 
-### `npm run eject`
+cloud {
+    card "localhost:3000" {
+        file "manifest.json" as manifest
+        file "main.chunk.js" as main
+        file "favicon.ico" as favicon
+        file "vendor~main.chunk.js" as vendor
+        file "bundle.js" as bundle
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+        node_modules --> vendor
+        src --> main
+        public_favicon --> favicon
+        public_manifest --> manifest
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+        artifact "index.html" as index {
+            public_index --> index
+            manifest --> index
+            main --> index
+            favicon --> index
+            vendor --> index
+            bundle -r-> index
+        }
+    }
+}
+@enduml
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
